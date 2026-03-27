@@ -81,9 +81,22 @@
   <h2 class="reveal">Trabalhos que <em>falam</em><br>por si mesmos.</h2>
   <p class="section-sub reveal">Uma seleção de projetos que transformaram marcas e geraram resultados reais para nossos clientes.</p>
 
-  <div class="portfolio-grid">
+  <!-- ── MENU DE CATEGORIAS ── -->
+  <div class="port-filter-wrap reveal">
+    <div class="port-filter" id="portFilter">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="advocacia">Advocacia &amp; Consultoria</button>
+      <button class="filter-btn" data-filter="psicologia">Psicologia &amp; Psicopedagogia</button>
+      <button class="filter-btn" data-filter="arquitetura">Arquitetura</button>
+      <button class="filter-btn" data-filter="confeitaria">Confeitaria &amp; Café</button>
+      <button class="filter-btn" data-filter="roupas">Roupas &amp; Acessórios</button>
+      <button class="filter-btn" data-filter="outros">Outros</button>
+    </div>
+  </div>
 
-    <div class="port-item port-large reveal">
+  <div class="portfolio-grid" id="portfolioGrid">
+
+    <div data-category="confeitaria" class="port-item port-large reveal">
       <img src="img/dona molica/Donna Molica 1.png" class="port-img" alt="Identidade visual premium para Donna Molica">
       <div class="port-overlay">
         <div class="port-info">
@@ -92,7 +105,7 @@
         </div>
       </div>
     </div>
-    <div class="port-item reveal">
+    <div data-category="confeitaria" class="port-item reveal">
       <img src="img/dona molica/Donna Molica - Sub 1.png" class="port-img" alt="Submarca Donna Molica">
       <div class="port-overlay">
         <div class="port-info">
@@ -102,7 +115,7 @@
       </div>
     </div>
 
-    <div class="port-item reveal">
+    <div data-category="outros" class="port-item reveal">
       <img src="img/mahaloexperience/Logotipo 2 (1).png" class="port-img" alt="Identidade Visual Mahalo Experience">
       <div class="port-overlay">
         <div class="port-info">
@@ -111,7 +124,7 @@
         </div>
       </div>
     </div>
-    <div class="port-item port-large reveal">
+    <div data-category="outros" class="port-item port-large reveal">
       <img src="img/mahaloexperience/Logotipo 1 (1).png" class="port-img" alt="Mahalo Experience Versão Dark">
       <div class="port-overlay">
         <div class="port-info">
@@ -121,7 +134,7 @@
       </div>
     </div>
 
-    <div class="port-item reveal">
+    <div data-category="outros" class="port-item reveal">
       <img src="img/bem me cuida/Bem me Cuida - Logo 2.png" class="port-img" alt="Bem Me Cuida Identidade">
       <div class="port-overlay">
         <div class="port-info">
@@ -130,7 +143,7 @@
         </div>
       </div>
     </div>
-    <div class="port-item reveal">
+    <div data-category="outros" class="port-item reveal">
       <img src="img/bem me cuida/Bem me Cuida - Sub 1.png" class="port-img" alt="Bem Me Cuida Submarca">
       <div class="port-overlay">
         <div class="port-info">
@@ -139,7 +152,7 @@
         </div>
       </div>
     </div>
-    <div class="port-item reveal">
+    <div data-category="roupas" class="port-item reveal">
       <img src="img/affeto kids/Affetto Kids - Logo 1.png" class="port-img" alt="Affetto kids Logo">
       <div class="port-overlay">
         <div class="port-info">
@@ -149,7 +162,7 @@
       </div>
     </div>
 
-    <div class="port-item port-large reveal">
+    <div data-category="advocacia" class="port-item port-large reveal">
       <img src="img/moniquedamarem/Logotipo 1.png" class="port-img" alt="Monique Damarem Identidade Visual">
       <div class="port-overlay">
         <div class="port-info">
@@ -158,7 +171,7 @@
         </div>
       </div>
     </div>
-    <div class="port-item reveal">
+    <div data-category="advocacia" class="port-item reveal">
       <img src="img/moniquedamarem/Submarca 2.png" class="port-img" alt="Monique Damarem Submarca">
       <div class="port-overlay">
         <div class="port-info">
@@ -168,7 +181,7 @@
       </div>
     </div>
 
-    <div class="port-item reveal">
+    <div data-category="psicologia" class="port-item reveal">
       <img src="img/rebeca prazeres/LOGOTIPO 2.png" class="port-img" alt="Rebeca Prazeres Logo">
       <div class="port-overlay">
         <div class="port-info">
@@ -177,7 +190,7 @@
         </div>
       </div>
     </div>
-    <div class="port-item port-large reveal">
+    <div data-category="psicologia" class="port-item port-large reveal">
       <img src="img/rebeca prazeres/MOCKUP.png" class="port-img" alt="Rebeca Prazeres Mockup de Impressos">
       <div class="port-overlay">
         <div class="port-info">
@@ -186,7 +199,7 @@
         </div>
       </div>
     </div>
-    <div class="port-item port-large reveal">
+    <div data-category="psicologia" class="port-item port-large reveal">
       <img src="img/larissa kimberlle/MOCKUP 1.png" class="port-img" alt="Larissa kimberlle Mockup de Impressos">
       <div class="port-overlay">
         <div class="port-info">
@@ -195,7 +208,7 @@
         </div>
       </div>
     </div>
-    <div class="port-item reveal">
+    <div data-category="psicologia" class="port-item reveal">
       <img src="img/larissa kimberlle/LOGOTIPO 1 (2).png" class="port-img" alt="Larissa kimberlle Logo">
       <div class="port-overlay">
         <div class="port-info">
@@ -204,7 +217,7 @@
         </div>
       </div>
     </div>
-    <div class="port-item reveal">
+    <div data-category="roupas" class="port-item reveal">
       <img src="img/capivara kids/Capivara Kids - Logo 2.png" class="port-img" alt="Capivara kids Logo">
       <div class="port-overlay">
         <div class="port-info">
@@ -213,7 +226,7 @@
         </div>
       </div>
     </div>
-    <div class="port-item reveal">
+    <div data-category="roupas" class="port-item reveal">
       <img src="img/capivara kids/Pattern.png" class="port-img" alt="Capivara kids Logo">
       <div class="port-overlay">
         <div class="port-info">
@@ -222,7 +235,7 @@
         </div>
       </div>
     </div>
-    <div class="port-item reveal">
+    <div data-category="roupas" class="port-item reveal">
       <img src="img/affeto kids/Affetto Kids - Sub 2.png" class="port-img" alt="Affetto kids Logo">
       <div class="port-overlay">
         <div class="port-info">
