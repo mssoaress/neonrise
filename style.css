@@ -694,6 +694,97 @@ footer {
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+
+/* ══════════ PORTFOLIO FILTER ══════════ */
+.port-filter-wrap {
+  margin-bottom: 48px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  display: flex;
+  justify-content: center;
+}
+.port-filter-wrap::-webkit-scrollbar { display: none; }
+
+.port-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-alt);
+  border: 1px solid var(--lav-pale);
+  padding: 6px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.filter-btn {
+  padding: 10px 22px;
+  border-radius: 99px;
+  border: none;
+  background: transparent;
+  font-family: var(--font);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .35s var(--ease-out), color .35s, transform .3s var(--ease-bounce), box-shadow .35s;
+  white-space: nowrap;
+  position: relative;
+}
+.filter-btn:hover {
+  color: var(--text);
+  background: rgba(174,177,240,.12);
+  transform: translateY(-1px);
+}
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--lav-deep), var(--lav-mid));
+  color: white;
+  box-shadow: 0 4px 20px rgba(174,177,240,.45);
+  transform: translateY(-1px);
+}
+.filter-btn.active:hover { transform: translateY(-2px); }
+
+/* itens ocultos pelo filtro */
+.port-item.hidden {
+  opacity: 0 !important;
+  transform: scale(.85) !important;
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+}
+
+/* grid dinâmico — reflow ao filtrar */
+#portfolioGrid {
+  position: relative;
+  transition: height .4s var(--ease-out);
+}
+
+/* animação ao revelar após filtro */
+.port-item.filter-show {
+  animation: filterReveal .45s var(--ease-bounce) forwards;
+}
+@keyframes filterReveal {
+  from { opacity: 0; transform: scale(.9) translateY(16px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+
+.port-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--muted);
+  font-size: .85rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  opacity: 0;
+  animation: fadeSlideUp .5s var(--ease-out) forwards;
+}
+
+/* ══ FIM PORTFOLIO FILTER ══ */
+
 /* ══════════ RESPONSIVE ══════════ */
 @media (max-width: 900px) {
   #hero { grid-template-columns: 1fr; padding: 120px 5vw 60px; min-height: auto; }
