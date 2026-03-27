@@ -1,7 +1,3 @@
-/* ════════════════════════════════════════════════
-   NEON RISE AGÊNCIA — script.js v4 Lavanda Premium
-   ════════════════════════════════════════════════ */
-
 // ── PRELOAD IMAGENS DO PORTFÓLIO (evita delay ao revelar)
 document.querySelectorAll(".port-img").forEach(img => {
   img.setAttribute("loading", "eager");
@@ -269,3 +265,55 @@ if (window.matchMedia("(pointer: fine)").matches) {
   document.addEventListener("mouseleave", () => { cursor.style.opacity = "0"; cursorDot.style.opacity = "0"; });
   document.addEventListener("mouseenter", () => { cursor.style.opacity = "1"; cursorDot.style.opacity = "1"; });
 }
+// ── PORTFOLIO FILTER
+(function() {
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const grid       = document.getElementById("portfolioGrid");
+  if (!filterBtns.length || !grid) return;
+
+  function applyFilter(cat) {
+    const items = grid.querySelectorAll(".port-item");
+
+    items.forEach(item => {
+      const itemCat = item.dataset.category || "outros";
+      const show    = cat === "all" || itemCat === cat;
+
+      if (show) {
+        item.classList.remove("hidden");
+        item.classList.add("filter-show");
+        // remove animation class após terminar
+        item.addEventListener("animationend", () => {
+          item.classList.remove("filter-show");
+        }, { once: true });
+      } else {
+        item.classList.add("hidden");
+        item.classList.remove("filter-show");
+      }
+    });
+
+    // Conta visíveis e mostra empty state
+    const visible = grid.querySelectorAll(".port-item:not(.hidden)").length;
+    let empty = grid.querySelector(".port-empty");
+    if (visible === 0) {
+      if (!empty) {
+        empty = document.createElement("div");
+        empty.className = "port-empty";
+        empty.innerHTML = "<p>Projetos desta categoria em breve ✨</p>";
+        grid.appendChild(empty);
+      }
+    } else {
+      if (empty) empty.remove();
+    }
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      applyFilter(btn.dataset.filter);
+    });
+  });
+
+  // inicia com "Todos"
+  applyFilter("all");
+})();
