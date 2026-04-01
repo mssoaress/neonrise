@@ -248,40 +248,30 @@ if (!filterBtns.length || !grid) return;
 
 function applyFilter(cat) {
 const items = grid.querySelectorAll(”.port-item”);
-
-```
 items.forEach(item => {
-  const itemCat = item.dataset.category || "outros";
-  const show    = cat === "all" || itemCat === cat;
-
-  if (show) {
-    item.classList.remove("hidden");
-    item.classList.add("filter-show");
-    // remove animation class após terminar
-    item.addEventListener("animationend", () => {
-      item.classList.remove("filter-show");
-    }, { once: true });
-  } else {
-    item.classList.add("hidden");
-    item.classList.remove("filter-show");
-  }
-});
-
-// Conta visíveis e mostra empty state
-const visible = grid.querySelectorAll(".port-item:not(.hidden)").length;
-let empty = grid.querySelector(".port-empty");
-if (visible === 0) {
-  if (!empty) {
-    empty = document.createElement("div");
-    empty.className = "port-empty";
-    empty.innerHTML = "<p>Projetos desta categoria em breve ✨</p>";
-    grid.appendChild(empty);
-  }
+const match = cat === “all” || (item.dataset.category || “outros”) === cat;
+if (match) {
+item.classList.remove(“hidden”);
+item.classList.add(“filter-show”);
+item.addEventListener(“animationend”, () => item.classList.remove(“filter-show”), { once: true });
 } else {
-  if (empty) empty.remove();
+item.classList.add(“hidden”);
+item.classList.remove(“filter-show”);
 }
-```
-
+});
+// empty state
+const visible = grid.querySelectorAll(”.port-item:not(.hidden)”).length;
+let empty = grid.querySelector(”.port-empty”);
+if (visible === 0) {
+if (!empty) {
+empty = document.createElement(“p”);
+empty.className = “port-empty”;
+empty.textContent = “Projetos desta categoria em breve ✨”;
+grid.appendChild(empty);
+}
+} else {
+if (empty) empty.remove();
+}
 }
 
 filterBtns.forEach(btn => {
@@ -292,21 +282,17 @@ applyFilter(btn.dataset.filter);
 });
 });
 
-// inicia com “Todos”
 applyFilter(“all”);
 })();
 
-// ── DRAG-TO-SCROLL no filtro (compatibilidade total)
+// ── DRAG-TO-SCROLL no menu de filtros (compatibilidade total)
 (function() {
 const wrap = document.querySelector(”.port-filter-wrap”);
 if (!wrap) return;
-
 let isDown = false, startX, scrollLeft;
-
 wrap.addEventListener(“mousedown”, e => {
-isDown = true;
-wrap.style.cursor = “grabbing”;
-startX    = e.pageX - wrap.offsetLeft;
+isDown = true; wrap.style.cursor = “grabbing”;
+startX = e.pageX - wrap.offsetLeft;
 scrollLeft = wrap.scrollLeft;
 });
 wrap.addEventListener(“mouseleave”, () => { isDown = false; wrap.style.cursor = “”; });
@@ -314,19 +300,6 @@ wrap.addEventListener(“mouseup”,    () => { isDown = false; wrap.style.curso
 wrap.addEventListener(“mousemove”,  e => {
 if (!isDown) return;
 e.preventDefault();
-const x    = e.pageX - wrap.offsetLeft;
-const walk = (x - startX) * 1.4;
-wrap.scrollLeft = scrollLeft - walk;
+wrap.scrollLeft = scrollLeft - (e.pageX - wrap.offsetLeft - startX) * 1.3;
 });
-
-// Touch: garante que o scroll funciona em todos os browsers
-let touchStartX = 0, touchScrollLeft = 0;
-wrap.addEventListener(“touchstart”, e => {
-touchStartX    = e.touches[0].pageX;
-touchScrollLeft = wrap.scrollLeft;
-}, { passive: true });
-wrap.addEventListener(“touchmove”, e => {
-const dx = touchStartX - e.touches[0].pageX;
-wrap.scrollLeft = touchScrollLeft + dx;
-}, { passive: true });
 })();
