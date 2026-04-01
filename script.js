@@ -1,8 +1,8 @@
-/* ════════════════════════════════════════════════
-   NEON RISE AGÊNCIA — script.js v4 Lavanda Premium
-   ════════════════════════════════════════════════ */
+/* ================================================
+   NEON RISE AGENCIA - script.js v4 Lavanda Premium
+   ================================================ */
 
-// ── FIX: remove .reveal do filter wrap para não bloquear scroll mobile
+// -- FIX: remove .reveal do filter wrap para nao bloquear scroll mobile
 (function() {
   const wrap = document.querySelector(".port-filter-wrap");
   if (wrap) {
@@ -13,7 +13,7 @@
   }
 })();
 
-// ── TOUCH SCROLL manual no filtro (iOS Safari + Android WebView)
+// -- TOUCH SCROLL manual no filtro (iOS Safari + Android WebView)
 (function() {
   const wrap = document.querySelector(".port-filter-wrap");
   if (!wrap) return;
@@ -44,28 +44,26 @@
   });
 })();
 
-
-
-// ── PRELOAD IMAGENS DO PORTFÓLIO (evita delay ao revelar)
+// -- PRELOAD IMAGENS DO PORTFOLIO (evita delay ao revelar)
 document.querySelectorAll(".port-img").forEach(img => {
   img.setAttribute("loading", "eager");
   if (img.dataset.src) img.src = img.dataset.src;
 });
 
-// ── PROGRESS BAR
+// -- PROGRESS BAR
 const progressBar = document.getElementById("progress-bar");
 window.addEventListener("scroll", () => {
   const total = document.documentElement.scrollHeight - window.innerHeight;
   progressBar.style.width = (window.scrollY / total * 100) + "%";
 }, { passive: true });
 
-// ── NAVBAR SCROLL
+// -- NAVBAR SCROLL
 const navbar = document.getElementById("navbar");
 window.addEventListener("scroll", () => {
   navbar.classList.toggle("scrolled", window.scrollY > 40);
 }, { passive: true });
 
-// ── HAMBURGER MENU
+// -- HAMBURGER MENU
 const hamburger = document.getElementById("hamburger");
 const navLinks  = document.getElementById("navLinks");
 const spans     = hamburger.querySelectorAll("span");
@@ -86,7 +84,7 @@ navLinks.querySelectorAll("a").forEach(a => {
   });
 });
 
-// ── SCROLL REVEAL com stagger por seção
+// -- SCROLL REVEAL com stagger por secao
 const revealEls = document.querySelectorAll(".reveal, .reveal-left, .reveal-right");
 const revealOb  = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -104,7 +102,7 @@ document.querySelectorAll("section").forEach(sec => {
 });
 revealEls.forEach(el => revealOb.observe(el));
 
-// ── STEP REVEAL
+// -- STEP REVEAL
 const steps  = document.querySelectorAll(".step");
 const stepOb = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -116,7 +114,7 @@ const stepOb = new IntersectionObserver((entries) => {
 }, { threshold: 0.06, rootMargin: "0px 0px -30px 0px" });
 steps.forEach((el, i) => { el.dataset.idx = i; stepOb.observe(el); });
 
-// ── FLOAT WA some no CTA final
+// -- FLOAT WA some no CTA final
 const ctaFinal = document.getElementById("cta-final");
 const floatWa  = document.getElementById("floatWa");
 if (ctaFinal && floatWa) {
@@ -130,7 +128,7 @@ if (ctaFinal && floatWa) {
   ctaOb.observe(ctaFinal);
 }
 
-// ── COUNTER ANIMATION nos stats
+// -- COUNTER ANIMATION nos stats
 function animateCounter(el) {
   const target = el.textContent.trim();
   const num    = parseFloat(target.replace(/[^0-9.]/g, ""));
@@ -159,7 +157,7 @@ const statsOb = new IntersectionObserver((entries) => {
 const heroStats = document.querySelector(".hero-stats");
 if (heroStats) statsOb.observe(heroStats);
 
-// ── LIGHTBOX
+// -- LIGHTBOX
 const lightbox     = document.getElementById("lightbox");
 const lightImg     = document.getElementById("lightbox-img");
 const lightClose   = document.getElementById("lightbox-close");
@@ -178,7 +176,7 @@ function openLightbox(index) {
   const tag  = item.querySelector(".port-tag");
   lightImg.src = img ? img.src : "";
   lightImg.alt = img ? img.alt : "";
-  lightCaption.textContent = (tag ? tag.textContent + " — " : "") + (name ? name.textContent : "");
+  lightCaption.textContent = (tag ? tag.textContent + " - " : "") + (name ? name.textContent : "");
   lightbox.classList.add("open");
   document.body.style.overflow = "hidden";
 }
@@ -198,7 +196,7 @@ function navigate(dir) {
   lightImg.style.transform = "scale(.94) translateX(" + (dir > 0 ? "30px" : "-30px") + ")";
   setTimeout(() => {
     lightImg.src = img ? img.src : "";
-    lightCaption.textContent = (tag ? tag.textContent + " — " : "") + (name ? name.textContent : "");
+    lightCaption.textContent = (tag ? tag.textContent + " - " : "") + (name ? name.textContent : "");
     lightImg.style.opacity   = "1";
     lightImg.style.transform = "scale(1) translateX(0)";
   }, 220);
@@ -226,7 +224,7 @@ lightbox.addEventListener("touchend",   e => {
   if (Math.abs(dx) > 50) navigate(dx < 0 ? 1 : -1);
 });
 
-// ── MAGNETIC HOVER nos botões
+// -- MAGNETIC HOVER nos botoes
 document.querySelectorAll(".btn-final, .btn-ghost, .social-btn").forEach(btn => {
   btn.addEventListener("mousemove", (e) => {
     const rect = btn.getBoundingClientRect();
@@ -237,7 +235,7 @@ document.querySelectorAll(".btn-final, .btn-ghost, .social-btn").forEach(btn => 
   btn.addEventListener("mouseleave", () => { btn.style.transform = ""; });
 });
 
-// ── PARALLAX SUAVE no hero
+// -- PARALLAX SUAVE no hero
 const heroContent = document.querySelector(".hero-content");
 const heroVisual  = document.querySelector(".hero-visual");
 window.addEventListener("scroll", () => {
@@ -246,7 +244,7 @@ window.addEventListener("scroll", () => {
   if (heroVisual)  heroVisual.style.transform  = `translateY(${y * .085}px)`;
 }, { passive: true });
 
-// ── CURSOR PERSONALIZADO (desktop only)
+// -- CURSOR PERSONALIZADO (desktop only)
 if (window.matchMedia("(pointer: fine)").matches) {
   const cursor     = document.createElement("div");
   const cursorDot  = document.createElement("div");
@@ -313,7 +311,8 @@ if (window.matchMedia("(pointer: fine)").matches) {
   document.addEventListener("mouseleave", () => { cursor.style.opacity = "0"; cursorDot.style.opacity = "0"; });
   document.addEventListener("mouseenter", () => { cursor.style.opacity = "1"; cursorDot.style.opacity = "1"; });
 }
-// ── PORTFOLIO FILTER
+
+// -- PORTFOLIO FILTER
 (function() {
   const filterBtns = document.querySelectorAll(".filter-btn");
   const grid       = document.getElementById("portfolioGrid");
@@ -329,7 +328,6 @@ if (window.matchMedia("(pointer: fine)").matches) {
       if (show) {
         item.classList.remove("hidden");
         item.classList.add("filter-show");
-        // remove animation class após terminar
         item.addEventListener("animationend", () => {
           item.classList.remove("filter-show");
         }, { once: true });
@@ -339,14 +337,13 @@ if (window.matchMedia("(pointer: fine)").matches) {
       }
     });
 
-    // Conta visíveis e mostra empty state
     const visible = grid.querySelectorAll(".port-item:not(.hidden)").length;
     let empty = grid.querySelector(".port-empty");
     if (visible === 0) {
       if (!empty) {
         empty = document.createElement("div");
         empty.className = "port-empty";
-        empty.innerHTML = "<p>Projetos desta categoria em breve ✨</p>";
+        empty.innerHTML = "<p>Projetos desta categoria em breve!</p>";
         grid.appendChild(empty);
       }
     } else {
@@ -362,6 +359,5 @@ if (window.matchMedia("(pointer: fine)").matches) {
     });
   });
 
-  // inicia com "Todos"
   applyFilter("all");
 })();
