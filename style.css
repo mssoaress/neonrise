@@ -698,13 +698,29 @@ footer {
 /* ══════════ PORTFOLIO FILTER ══════════ */
 .port-filter-wrap {
   margin-bottom: 48px;
-  overflow-x: auto;
+  /* scroll horizontal robusto para todos os navegadores */
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: visible;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   scrollbar-width: none;
   display: flex;
   justify-content: center;
+  /* padding lateral para não cortar nas bordas no mobile */
+  padding: 4px 6vw;
+  box-sizing: border-box;
+  /* impede que o wrapper encolha */
+  flex-shrink: 0;
 }
 .port-filter-wrap::-webkit-scrollbar { display: none; }
+
+/* no mobile centraliza pelo scroll, não pelo flex */
+@media (max-width: 900px) {
+  .port-filter-wrap {
+    justify-content: flex-start;
+  }
+}
 
 .port-filter {
   display: inline-flex;
@@ -714,7 +730,11 @@ footer {
   border: 1px solid var(--lav-pale);
   padding: 6px;
   border-radius: 99px;
+  /* nunca quebra linha */
   white-space: nowrap;
+  flex-shrink: 0;
+  /* garante que o conteúdo não seja cortado */
+  min-width: max-content;
 }
 
 .filter-btn {
