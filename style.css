@@ -697,71 +697,87 @@ footer {
 
 /* ══════════ PORTFOLIO FILTER ══════════ */
 .port-filter-wrap {
-  margin-bottom: 52px;
+  margin-bottom: 48px;
+  /* scroll horizontal robusto */
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
   display: flex;
   justify-content: center;
-  /* scroll horizontal no mobile sem quebrar layout */
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding-bottom: 4px;
+  /* CRÍTICO: neutraliza o transform do .reveal que bloqueia scroll no mobile */
+  transform: none !important;
+  will-change: auto !important;
+  opacity: 1 !important;
 }
 .port-filter-wrap::-webkit-scrollbar { display: none; }
 
 .port-filter {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   background: var(--bg-alt);
   border: 1px solid var(--lav-pale);
   padding: 6px;
   border-radius: 99px;
   white-space: nowrap;
-  min-width: 0;
 }
 
 .filter-btn {
-  padding: 10px 20px;
+  padding: 10px 22px;
   border-radius: 99px;
   border: none;
   background: transparent;
   font-family: var(--font);
-  font-size: .63rem;
+  font-size: .65rem;
   font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--muted);
   cursor: pointer;
+  transition: background .35s var(--ease-out), color .35s, transform .3s var(--ease-bounce), box-shadow .35s;
   white-space: nowrap;
-  transition: background .3s var(--ease-out), color .3s, transform .3s var(--ease-bounce), box-shadow .3s;
+  position: relative;
 }
 .filter-btn:hover {
   color: var(--text);
-  background: rgba(174,177,240,.14);
+  background: rgba(174,177,240,.12);
   transform: translateY(-1px);
 }
 .filter-btn.active {
   background: linear-gradient(135deg, var(--lav-deep), var(--lav-mid));
-  color: #fff;
-  box-shadow: 0 4px 18px rgba(174,177,240,.45);
+  color: white;
+  box-shadow: 0 4px 20px rgba(174,177,240,.45);
   transform: translateY(-1px);
 }
+.filter-btn.active:hover { transform: translateY(-2px); }
 
-/* item oculto pelo filtro */
+/* itens ocultos pelo filtro */
 .port-item.hidden {
-  display: none;
+  opacity: 0 !important;
+  transform: scale(.85) !important;
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
 }
 
-/* animação ao revelar */
+/* grid dinâmico — reflow ao filtrar */
+#portfolioGrid {
+  position: relative;
+  transition: height .4s var(--ease-out);
+}
+
+/* animação ao revelar após filtro */
+.port-item.filter-show {
+  animation: filterReveal .45s var(--ease-bounce) forwards;
+}
 @keyframes filterReveal {
-  from { opacity: 0; transform: scale(.92) translateY(12px); }
+  from { opacity: 0; transform: scale(.9) translateY(16px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
-.port-item.filter-show {
-  animation: filterReveal .4s var(--ease-bounce) forwards;
-}
 
-/* estado vazio */
+
 .port-empty {
   grid-column: 1 / -1;
   text-align: center;
@@ -770,17 +786,10 @@ footer {
   font-size: .85rem;
   font-weight: 500;
   letter-spacing: .06em;
-  animation: filterReveal .5s var(--ease-out) forwards;
+  opacity: 0;
+  animation: fadeSlideUp .5s var(--ease-out) forwards;
 }
 
-/* mobile: alinha à esquerda para scroll funcionar */
-@media (max-width: 768px) {
-  .port-filter-wrap {
-    justify-content: flex-start;
-    padding-left: 5vw;
-    padding-right: 5vw;
-  }
-}
 /* ══ FIM PORTFOLIO FILTER ══ */
 
 /* ══════════ RESPONSIVE ══════════ */
@@ -829,4 +838,18 @@ footer {
   .hero-stats { flex-wrap: wrap; gap: 22px; }
   .stat { border-right: none; padding-right: 0; margin-right: 0; border-bottom: 1px solid var(--lav-pale); padding-bottom: 20px; margin-bottom: 20px; }
   .stat:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+}
+/* mobile: alinha à esquerda para scroll funcionar */
+@media (max-width: 900px) {
+  .port-filter-wrap {
+    justify-content: flex-start;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    /* força display block para iOS Safari respeitar overflow-x */
+    display: block;
+    white-space: nowrap;
+  }
+  .port-filter {
+    display: inline-flex;
+  }
 }
